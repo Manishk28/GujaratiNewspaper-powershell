@@ -41,5 +41,12 @@ ForEach($value in $src){
 
 DownloadFile $GSPaperlist $GSDir 
 
+Copy-Item -Path "$ScriptDir\PDFtk\jpeg2pdf.exe" -Destination $GSDir
 
+#merge pdfs
+Start-Process -FilePath "jpeg2pdf.exe" -ArgumentList "*.jpg -o GujaratSamachar.pdf" -WorkingDirectory $GSDir -wait
 
+Copy-Item -Path $GSDir\GujaratSamachar.pdf -Destination $targetDir
+
+#delete each directory.
+Remove-Item $GSDir -Recurse
